@@ -1,15 +1,14 @@
-import React from "react";
+import React, { useState , useEffect } from "react";
+import axios from "axios";
+import config from "../config.json";
 import Header from "./Header";
-const axios = require("axios");
-
-const ApiUrl = "https://peaceful-forest-62260.herokuapp.com/";
 
 export default function Main() {
-  const [languageList, setLanguageList] = React.useState([]);
-  const [moviesData, setMoviesData] = React.useState({});
+  const [languageList, setLanguageList] = useState([]);
+  const [moviesData, setMoviesData] = useState({});
 
-  React.useEffect(() => {
-    axios.get(ApiUrl).then((res) => {
+  useEffect(() => {
+    axios.get(config.ApiUrl).then((res) => {
       if (res.status === 200) {
         if (res.data.languageList && res.data.languageList.length > 0) {
           setLanguageList(res.data.languageList);
