@@ -1,4 +1,49 @@
-.App {
+body {
+  margin: 0px;
+  font-size: 14px;
+  background: #323232;
+  color: white;
+}
+.main {
   font-family: sans-serif;
-  text-align: center;
+}
+
+/* HEADER */
+.header {
+  padding: 0px;
+  margin: 0px;
+  display: flex;
+  background: #000000;
+  height: 50px;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.header-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-title {
+  margin: 0px;
+  font-size: 16px;
+  padding: 10px;
+  font-family: "Comic Sans MS";
+}
+
+.header-button {
+  margin-left: 10px;
+  text-transform: uppercase;
+  background: #323232;
+  color: white;
+  font-size: 12px;
+  cursor: pointer;
+}
+.header-button:hover {
+  color: white;
+}
+.header-button.active {
+  background: #47b68b;
+  cursor: default;
 }
