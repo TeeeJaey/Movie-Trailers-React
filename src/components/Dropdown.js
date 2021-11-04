@@ -1,12 +1,7 @@
 import React, { useState } from "react";
+import { FaCaretDown } from "react-icons/fa";
 
 export default function Dropdown(props) {
-    const [showDropdown, setShowDropdown] = useState("none");
-    
-    const toggleDropdown = function() {
-        if(showDropdown == "none") setShowDropdown("block");
-        else setShowDropdown("none");
-    };
 
     if(!props.list)
         props.list = [];
@@ -15,19 +10,29 @@ export default function Dropdown(props) {
 
     let dropddownListRender = [];
     dropdownList.forEach((option,i) => {
-        dropddownListRender.push(<a key={option+'_'+i} className={"dropdown-item"} onClick={()=>props.select(option)}  > 
-                                    <span className="ellipsis"> {option} </span> 
+        let checkboxClass= "dropdown-item-checkbox";
+        let add = true;
+        if(props.label.includes(option)){
+            add = false;
+            checkboxClass += " checked"
+        }
+        dropddownListRender.push(<a key={option+'_'+i} className={"dropdown-item"} onClick={()=>props.select(option,add)}  > 
+                                    {props.isFilter && <div className={checkboxClass} /> }
+                                    <span className="ellipsis" > {option} </span> 
                                 </a>);
     });
-    
 
-    return <div className="dropdown" style={{marginRight:"5px"}} > 
-                <button className="btn btn-danger dropdown-toggle " type="button" onClick={toggleDropdown} >
-                    <span className="options-label"> {props.label} </span>
+    let label = props.label;
+    if(props.isFilter && label && label.length > 0)
+        label = label.join();
+
+    return <div className="dropdown" > 
+                <button className="btn dropdown-btn" type="button">
+                    <span className="options-label ellipsis"> {label} </span>
                     <FaCaretDown className="options-icon"/>
                 </button>
                 
-                <div className="dropdown-menu dropdown-menu-right" style={{ cursor:"pointer" , display: showDropdown}} >
+                <div className="dropdown-menu " >
                     {dropddownListRender}
                 </div>
             </div>;

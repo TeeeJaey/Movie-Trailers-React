@@ -1,12 +1,15 @@
-import { StrictMode } from "react";
-import ReactDOM from "react-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "./styles.css";
-import Main from "./components/Main.js";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import 'bootstrap/dist/css/bootstrap.css';
+
+import './index.css';
+import Main from './Components/Main.js';
+import store from './Store/Store.js';
 
 ReactDOM.render(
-  <StrictMode>
+  <Provider store={store} >
     <Main />
-  </StrictMode>,
-  document.getElementById("root")
+  </Provider>,
+  document.getElementById('root')
 );

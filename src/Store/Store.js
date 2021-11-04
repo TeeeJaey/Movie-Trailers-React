@@ -1,116 +1,80 @@
 import { createStore } from "redux";
-import Constants from "../Utils/Constants";
-import Utilities from "../Utils/Utilities";
-import Actions from "../Store/Actions";
+import Constants from "../Utils/Constants.js";
 
-function Task(id, title, desc="")
-{
-    this.id = id;
-    this.title = title;
-    this.desc = desc;
-    this.status = Constants.TaskStatus.TODO;
-    this.createDate = Utilities.DateToString(new Date());
-}
+const defaultState = {
+    showingReleasedMovies: false,
+    languageList: [], 
+    moviesData: {}, 
+    sortBy: "Popular",
+    languageFilter: [],
+    genreList: [],
+    genreFilter: []
+};
 
-let lastId = 0;
-const defaultState = {tasks:[], openTasks:[], shownTaskId:-1};
+function getGenres(moviesData) {
+    let genres = [];
+    if(!moviesData) 
+        return [];
+
+    for(const key in moviesData) {
+        let movie = moviesData[key];
+        let movieGenres = movie.EventGenre.split('|');
+        if(movieGenres && movieGenres.length > 0) {
+            movieGenres.forEach(movieGenre => {
+                genres.push(movieGenre);
+            });
+        }
+    }
+    
+    let setGenre = new Set(genres);
+    return [...setGenre].sort();
+};
+
 
 function reducer(state = defaultState, action) 
 {
     switch(action.type) 
     {
-        case Constants.TaskAction.ToggleForm: {
+        case Constants.StoreActions.SetFullData : {
             let newState = {...state};
-            newState.taskForm = action.payload.taskForm;
-            newState.openTasks = newState.tasks.filter(x => x.status != Constants.TaskStatus.DONE);
+            newState.languageList =  [...action.payload.data.languageList];
+            newState.moviesData = {...action.payload.data.moviesData};
+            newState.genreList = getGenres(action.payload.data.moviesData);
             return newState;
         }
 
-        case Constants.TaskAction.SetDisplayTask: {
+        case Constants.StoreActions.SetSortBy : {
             let newState = {...state};
-            newState.shownTaskId = action.payload.shownTaskId;
-            newState.openTasks = newState.tasks.filter(x => x.status != Constants.TaskStatus.DONE);
-            return newState;
-        }
-
-        case Constants.TaskAction.GetState: {
-            let newState = {...state};
-            newState.openTasks = newState.tasks.filter(x => x.status != Constants.TaskStatus.DONE);
-            return newState;
-        }
-
-        case Constants.TaskAction.Create_Task_Toggle: {
-            let newState = {...state};
-            newState.shownTaskId = -1;
-            newState.editTaskToggle = false;
-            newState.createTaskToggle = action.payload.createTaskToggle;
-            newState.openTasks = newState.tasks.filter(x => x.status != Constants.TaskStatus.DONE);
-            
-            return newState;
-        }
-
-        case Constants.TaskAction.Create_Task_Submit: {
-            let newState = {...state};
-            lastId += 1;
-            newState.shownTaskId = lastId;
-            let task =  new Task(lastId, action.payload.title, action.payload.desc)
-            newState.tasks.push(task);
-            newState.openTasks = newState.tasks.filter(x => x.status != Constants.TaskStatus.DONE);
-
+            newState.sortBy = action.payload.sortBy;
             return newState;
         }
         
-        case Constants.TaskAction.Edit_Task_Toggle : {
+        case Constants.StoreActions.ToggleLanguageFilter : {
             let newState = {...state};
-            newState.shownTaskId = action.payload.shownTaskId;
-            newState.editTaskToggle = action.payload.editTaskToggle;
-            newState.openTasks = newState.tasks.filter(x => x.status != Constants.TaskStatus.DONE);
-            
-            return newState;
-        }
-
-        case Constants.TaskAction.Edit_Task_Submit : {
-            let newState = {...state};
-            newState.tasks = [...state.tasks];
-            newState.openTasks = [...state.openTasks];
-
-            let task =  newState.tasks.find(x => x.id == action.payload.id);
-            task.title = action.payload.title;
-            task.desc = action.payload.desc;
-            newState.openTasks = newState.tasks.filter(x => x.status != Constants.TaskStatus.DONE);
-            
+            newState.languageFilter = [...state.languageFilter];
+            if(action.payload.add)
+                newState.languageFilter.push(action.payload.filter);
+            else
+                newState.languageFilter.splice(newState.languageFilter.indexOf(action.payload.filter),1);
             return newState;
         }
         
-        case Constants.TaskAction.Update_Status : {
+        case Constants.StoreActions.ToggleGenreFilter : {
             let newState = {...state};
-            newState.tasks = [...state.tasks];
-            newState.openTasks = [...state.openTasks];
-
-            let task =  newState.tasks.find(x => x.id == action.payload.id);
-            task.status = action.payload.status;
-
-            if(task.status == Constants.TaskStatus.ONGOING) {
-                task.startDate = Utilities.DateToString(new Date());
-                task.completeDate = "";
-            }
-            else if(task.status == Constants.TaskStatus.DONE) {
-                task.completeDate = Utilities.DateToString(new Date());
-            }
-    
-            newState.openTasks = newState.tasks.filter(x => x.status != Constants.TaskStatus.DONE);
-            
+            newState.genreFilter = [...state.genreFilter];
+            if(action.payload.add)
+                newState.genreFilter.push(action.payload.filter);
+            else
+                newState.genreFilter.splice(newState.genreFilter.indexOf(action.payload.filter),1);
             return newState;
         }
-
-        case Constants.TaskAction.Delete : {
+        
+        case Constants.StoreActions.ToggleReleasedMovies : {
             let newState = {...state};
-            newState.tasks =  newState.tasks.filter(x => x.id != action.payload.id);
-            newState.openTasks = newState.tasks.filter(x => x.status != Constants.TaskStatus.DONE);
-            
+            newState.showingReleasedMovies = action.payload.showing;
             return newState;
         }
-
+        
         default: {
             return state;
         }
@@ -120,10 +84,3 @@ function reducer(state = defaultState, action)
 const store  = createStore(reducer);
 export default store;
 
-
-
-//REMOVE below Code
-store.dispatch(Actions.Create_Task_Submit("Play cricket","Go to the school ground. \n Invite friends and play cricket. \n Then win it!"));
-store.dispatch(Actions.Update_Status(1,Constants.TaskStatus.DONE));
-
-store.dispatch(Actions.Create_Task_Submit("Play football","Call Steve for football match. \n Set a time to play football. \n Tthen win it!"));

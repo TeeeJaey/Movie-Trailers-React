@@ -2,7 +2,6 @@
 
 class Utilities
 {
-		
 	static pad(number, length) 
 	{
 		var str = '' + number;
