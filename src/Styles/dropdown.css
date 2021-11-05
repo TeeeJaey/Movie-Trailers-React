@@ -21,6 +21,7 @@
 }
 
 .dropdown-menu {
+    z-index: 3000;
     background: #323232;
     color:white;
     cursor: pointer;

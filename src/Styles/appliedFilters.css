@@ -1,6 +1,11 @@
 
 .applied-filters {
-    margin: 10px;
+    background: #1c1c1c;
+    position: fixed;
+    z-index: 100;
+    top:50px;
+    padding-top: 10px;
+    padding-left: 10px;
     font-size: 14px;
     color: #cccccc;
     display: inline-flex;
@@ -9,7 +14,7 @@
     justify-content: left;
     align-items: center;
     width: 97vw;
-    height: 25px;
+    height: 45px;
 }
 
 .applied-filters > .label {
@@ -50,4 +55,12 @@
 .applied-filters > .list .filter-item > .filter-cross {
     margin-left: 5px;
     cursor: pointer;
+}
+
+
+@media only screen and (max-width:800px) {
+
+    .applied-filters {
+        top: 100px;
+    }
 }
