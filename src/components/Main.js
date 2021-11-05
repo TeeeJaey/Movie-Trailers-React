@@ -4,6 +4,7 @@ import axios from "axios";
 import config from "../config.json";
 import Header from "./Header.js";
 import Actions from "../Store/Actions";
+import Dashboard from "./Dashboard";
 
 export default function Main() {
     const dispatch = useDispatch();
@@ -18,8 +19,8 @@ export default function Main() {
 
     return (
         <div className="main">
-        <Header />
-        
+            <Header />
+            <Dashboard/>
         </div>
     );
 }

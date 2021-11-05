@@ -17,7 +17,7 @@ export default function Dropdown(props) {
             checkboxClass += " checked"
         }
         dropddownListRender.push(<a key={option+'_'+i} className={"dropdown-item"} onClick={()=>props.select(option,add)}  > 
-                                    {props.isFilter && <div className={checkboxClass} /> }
+                                    {props.isFilter && <div className={checkboxClass} > <span>&#10003;</span> </div> }
                                     <span className="ellipsis" > {option} </span> 
                                 </a>);
     });
@@ -28,8 +28,8 @@ export default function Dropdown(props) {
 
     return <div className="dropdown" > 
                 <button className="btn dropdown-btn" type="button">
-                    <span className="options-label ellipsis"> {label} </span>
-                    <FaCaretDown className="options-icon"/>
+                    <span className="dropdown-label ellipsis"> {label} </span>
+                    <FaCaretDown className="dropdown-icon"/>
                 </button>
                 
                 <div className="dropdown-menu " >

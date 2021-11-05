@@ -21,12 +21,13 @@ export default function Header() {
         <div className="header">
             <div className="header-item">
                 <h4 className="header-title">Movie Trailers</h4>
-                <button className={showingReleasedMovies? "btn header-button": "btn header-button active"} 
-                        onClick={()=>dispatch(Actions.ToggleReleasedMovies(false))} >coming soon</button>
-                <button className={showingReleasedMovies? "btn header-button active": "btn header-button"} 
-                        onClick={()=>dispatch(Actions.ToggleReleasedMovies(true))} >now showing</button>
+                <div>
+                    <button className={showingReleasedMovies? "btn header-button": "btn header-button active"} 
+                            onClick={()=>dispatch(Actions.ToggleReleasedMovies(false))} >coming soon</button>
+                    <button className={showingReleasedMovies? "btn header-button active": "btn header-button"} 
+                            onClick={()=>dispatch(Actions.ToggleReleasedMovies(true))} >now showing</button>
+                </div>
             </div>
-            
             <div className="header-item">
                 <Dropdown   label={sortBy} 
                             list={["Popular", "Fresh"]} isFilter={false}
