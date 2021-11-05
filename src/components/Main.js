@@ -1,4 +1,4 @@
-import React, { useState , useEffect } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import config from "../config.json";
@@ -9,7 +9,7 @@ import Dashboard from "./Dashboard";
 export default function Main() {
     const dispatch = useDispatch();
 
-    useEffect(() => {
+    React.useEffect(() => {
         axios.get(config.ApiUrl).then((res) => {
         if (res.status === 200) {
             dispatch(Actions.SetFullData(res.data));

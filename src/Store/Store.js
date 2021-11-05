@@ -5,7 +5,7 @@ const defaultState = {
     showingReleasedMovies: false,
     languageList: [], 
     moviesData: {}, 
-    sortBy: "Popular",
+    sortBy: Constants.SortBy.Popular,
     languageFilter: [],
     genreList: [],
     genreFilter: []

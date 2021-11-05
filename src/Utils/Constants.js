@@ -12,6 +12,14 @@ class Constants
         };
         return StoreActions;
     }
+    static get SortBy()
+    {
+        const SortBy = {
+            Popular: "Popular",
+            Fresh:"Fresh"
+        };
+        return SortBy;
+    }
 }
 
 export default Constants;
