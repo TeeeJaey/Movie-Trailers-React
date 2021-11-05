@@ -17,10 +17,10 @@ export default function Dropdown(props) {
             add = false;
             checkboxClass += " checked"
         }
-        dropddownListRender.push(<a key={option+'_'+i} className={"dropdown-item"} onClick={()=>props.select(option,add)}  > 
+        dropddownListRender.push(<div key={option+'_'+i} className={"dropdown-item"} onClick={()=>props.select(option,add)}  > 
                                     {props.isFilter && <div className={checkboxClass} > <span>&#10003;</span> </div> }
                                     <span className="ellipsis" > {option} </span> 
-                                </a>);
+                                </div>);
     });
 
     let label = props.label;

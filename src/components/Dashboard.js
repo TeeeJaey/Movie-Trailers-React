@@ -1,10 +1,14 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { MdThumbUp } from "react-icons/md";
+
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
+
 import '../Styles/dashboard.css';
 import AppliedFilters from "./AppliedFilters";
 import startBtnImage from "../Images/start-btn.png";
 import Constants from "../Utils/Constants";
-import { MdThumbUp } from "react-icons/md";
 
 export default function Dashboard() {
     const dispatch = useDispatch();
@@ -16,7 +20,6 @@ export default function Dashboard() {
     let movieList = [];
     for(const key in moviesData) {
         let movie = moviesData[key];
-        movie.key = key;
         movieList.push(movie);
     }
 
@@ -24,10 +27,10 @@ export default function Dashboard() {
         movieList = movieList.filter(x=>languageFilter.includes(x.EventLanguage));
     
     
-    if(sortBy == Constants.SortBy.Fresh) {
+    if(sortBy === Constants.SortBy.Fresh) {
         movieList.sort((a,b) => b.trailerUploadDate - a.trailerUploadDate);
     }
-    else if(sortBy == Constants.SortBy.Popular) {
+    else if(sortBy === Constants.SortBy.Popular) {
         movieList.sort((a,b) => b.wtsCount - a.wtsCount);
     }
 
@@ -38,7 +41,7 @@ export default function Dashboard() {
             <AppliedFilters/>
 
             <div className="movie-list">
-                {movieList.map((movie)=>{
+                {movieList.map((movie,i)=>{
 
                     let genreSatisfied = false;
                     if(genreFilter && genreFilter.length > 0) {
@@ -57,17 +60,19 @@ export default function Dashboard() {
                         const year = parseInt(date[0]);
                         const month = months[parseInt(date[1])];
 
-                        return  <div key={movie.key} className="movie">
+                        return  <div key={i} className="movie">
                                     <div className="movie-image">
                                         <div className="movie-date">
                                             <span className="month">{month}</span>
                                             <span className="year">{year}</span>
                                         </div>
 
-                                        <img src={movie.EventImageUrl} 
+                                        <LazyLoadImage effect="blur" 
+                                            src={movie.EventImageUrl} 
                                             className="image"
                                             alt={movie.EventTitle} />
-                                        <img src={startBtnImage} className="start-btn" />
+
+                                        <img src={startBtnImage} alt="play" className="start-btn" />
                                         
                                         <div className="movie-rating">
                                             <div className="flex-evenly">
@@ -79,13 +84,13 @@ export default function Dashboard() {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="movie-name">
+                                    <div key={movie.code} className="movie-name">
                                         {movie.EventTitle}
                                     </div>
                                 </div>;
                     }
                     else
-                        return <></>;
+                        return <div key={i}></div>;
                 })}
             </div>
         </div>

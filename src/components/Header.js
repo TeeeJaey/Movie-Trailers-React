@@ -15,8 +15,8 @@ export default function Header() {
     let languageFilter = useSelector(state => state.languageFilter);
     let genreFilter = useSelector(state => state.genreFilter);
 
-    if(languageFilter == "") languageFilter = ["All Languages"];
-    if(genreFilter == "") genreFilter = ["All Genres"];
+    if(!languageFilter || languageFilter.length === 0) languageFilter = ["All Languages"];
+    if(!genreFilter || genreFilter.length === 0) genreFilter = ["All Genres"];
 
     return (
         <div className="header">
