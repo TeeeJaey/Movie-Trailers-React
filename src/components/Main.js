@@ -5,6 +5,7 @@ import config from "../config.json";
 import Header from "./Header.js";
 import Actions from "../Store/Actions";
 import Dashboard from "./Dashboard";
+import '../Styles/Main.css';
 
 export default function Main() {
     const dispatch = useDispatch();

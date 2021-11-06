@@ -1,7 +1,7 @@
 import React, { useState, useEffect, Suspense } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import '../Styles/dashboard.css';
+import '../Styles/Dashboard.css';
 import AppliedFilters from "./AppliedFilters";
 import Constants from "../Utils/Constants";
 import Utilities from "../Utils/Utilities";
@@ -57,7 +57,7 @@ export default function Dashboard() {
         if(page < movieSplitList.length - 1)
             setIsLoading(true);
     };
-    
+
     useEffect(() => {
         if(movieSplitList && movieSplitList.length > 0) {
             const data = movieSplitList[1];

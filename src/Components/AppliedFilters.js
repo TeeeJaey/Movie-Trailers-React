@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Actions from "../Store/Actions";
-import '../Styles/appliedFilters.css';
+import '../Styles/AppliedFilters.css';
 
 
 export default function AppliedFilters() {
@@ -12,6 +12,7 @@ export default function AppliedFilters() {
 
     return <div className="applied-filters">
                 <div className="label">Applied Filters: </div> 
+                
                 <div className="list">
                 {languageFilter.map(filter => {
                     return  <div key={filter} className="filter-item"> 
