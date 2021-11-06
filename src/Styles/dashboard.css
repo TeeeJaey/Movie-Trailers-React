@@ -91,6 +91,7 @@
 @media only screen and (max-width:800px) {
 
     .movie-list {
+        margin:0px;
         margin-top: 140px;
     }
 }

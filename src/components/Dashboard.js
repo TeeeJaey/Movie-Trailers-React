@@ -1,98 +1,110 @@
-import React from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { MdThumbUp } from "react-icons/md";
-
-import { LazyLoadImage } from 'react-lazy-load-image-component';
-import 'react-lazy-load-image-component/src/effects/blur.css';
 
 import '../Styles/dashboard.css';
 import AppliedFilters from "./AppliedFilters";
-import startBtnImage from "../Images/start-btn.png";
 import Constants from "../Utils/Constants";
+import Utilities from "../Utils/Utilities";
+
+const MovieBlock = React.lazy(() => import("./MovieBlock"));
 
 export default function Dashboard() {
-    const dispatch = useDispatch();
-    let moviesData = useSelector(state => state.moviesData);
-    let sortBy = useSelector(state => state.sortBy);
-    let languageFilter = useSelector(state => state.languageFilter);
-    let genreFilter = useSelector(state => state.genreFilter);
-    
-    let movieList = [];
-    for(const key in moviesData) {
-        let movie = moviesData[key];
-        movieList.push(movie);
+    const [isLoading, setIsLoading] = useState(false);
+    const [page, setPage] = useState(1);
+    const [listItems, setListItems] = useState([]);
+
+    const moviesList = useSelector(state => state.moviesList);
+    const sortBy = useSelector(state => state.sortBy);
+    const languageFilter = useSelector(state => state.languageFilter);
+    const genreFilter = useSelector(state => state.genreFilter);
+
+    let movieSplitList = [];
+
+    if(moviesList && moviesList.length > 0) {
+        let filteredMoviesList = [...moviesList];
+
+        if(languageFilter && languageFilter.length > 0)
+            filteredMoviesList = filteredMoviesList.filter(movie=>languageFilter.includes(movie.EventLanguage));
+        
+        if(genreFilter && genreFilter.length > 0) {
+            filteredMoviesList = filteredMoviesList.filter(movie => {
+                let movieGenres = movie.EventGenre.split('|');
+                
+                for(let j=0; j<genreFilter.length; j++) {
+                    const genre = genreFilter[j];
+                    
+                    if(movieGenres.includes(genre)) return true;
+                }
+                return false;
+            });
+        }
+        
+        if(sortBy === Constants.SortBy.Fresh) {
+            filteredMoviesList.sort((a,b) => b.trailerUploadDate - a.trailerUploadDate);
+        }
+        else if(sortBy === Constants.SortBy.Popular) {
+            filteredMoviesList.sort((a,b) => b.wtsCount - a.wtsCount);
+        }
+
+        movieSplitList = Utilities.splitList(filteredMoviesList,20);
     }
 
-    if(languageFilter && languageFilter.length > 0)
-        movieList = movieList.filter(x=>languageFilter.includes(x.EventLanguage));
+    const handleScroll = () => {
+        if (Math.ceil(window.innerHeight + document.documentElement.scrollTop) !== document.documentElement.offsetHeight
+                || isLoading)
+            return;
+            
+        if(page < movieSplitList.length - 1)
+            setIsLoading(true);
+    };
     
-    
-    if(sortBy === Constants.SortBy.Fresh) {
-        movieList.sort((a,b) => b.trailerUploadDate - a.trailerUploadDate);
-    }
-    else if(sortBy === Constants.SortBy.Popular) {
-        movieList.sort((a,b) => b.wtsCount - a.wtsCount);
-    }
+    useEffect(() => {
+        if(movieSplitList && movieSplitList.length > 0) {
+            const data = movieSplitList[1];
+            if(data && data.length > 0)
+                setListItems(() => [...data]);
+            else
+                setListItems(() => []);
 
-    const months = ["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
+            window.scrollTo({top: 0, behavior: 'smooth'});
+
+            window.addEventListener('scroll', handleScroll);
+            return () => window.removeEventListener("scroll", handleScroll);
+        }
+        
+    }, [moviesList, sortBy, languageFilter, genreFilter]);
+    
+
+    useEffect(() => {
+        if (!isLoading) return;
+        
+        setTimeout(() => {
+            if(page < movieSplitList.length - 1) {
+                const data = movieSplitList[page+1];
+                setPage(page + 1);
+                if(data && data.length > 0)
+                    setListItems(() => [...listItems, ...data]);
+            }
+        },300);
+        
+        setIsLoading(false);
+    }, [isLoading]);
 
     return (
         <div className="dashboard">
             <AppliedFilters/>
 
             <div className="movie-list">
-                {movieList.map((movie,i)=>{
-
-                    let genreSatisfied = false;
-                    if(genreFilter && genreFilter.length > 0) {
-                        let genreList = movie.EventGenre.split('|');
-                        genreList.forEach(genre => {
-                            if(genreFilter.includes(genre)) {
-                                genreSatisfied = true;
-                            }
-                        }); 
-                    }
-                    else 
-                        genreSatisfied = true;
-                    
-                    if(genreSatisfied) {
-                        const date = movie.TrailerURLUploadDate.split('-');
-                        const year = parseInt(date[0]);
-                        const month = months[parseInt(date[1])];
-
-                        return  <div key={i} className="movie">
-                                    <div className="movie-image">
-                                        <div className="movie-date">
-                                            <span className="month">{month}</span>
-                                            <span className="year">{year}</span>
-                                        </div>
-
-                                        <LazyLoadImage effect="blur" 
-                                            src={movie.EventImageUrl} 
-                                            className="image"
-                                            alt={movie.EventTitle} />
-
-                                        <img src={startBtnImage} alt="play" className="start-btn" />
-                                        
-                                        <div className="movie-rating">
-                                            <div className="flex-evenly">
-                                                <MdThumbUp className="thumbsup-ico"/>
-                                                <div>{movie.wtsPerc}%</div>
-                                            </div>
-                                            <div className="flex-evenly">
-                                                <div className="vote-count">{movie.wtsCount} votes</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div key={movie.code} className="movie-name">
-                                        {movie.EventTitle}
-                                    </div>
-                                </div>;
-                    }
-                    else
-                        return <div key={i}></div>;
-                })}
+                {listItems && listItems.map((movie,key) => (
+                    <div key={movie.EventCode + key} >
+                        <Suspense fallback={<div style={{display:"none"}}></div>} >
+                            <MovieBlock key={movie.EventCode + key}  movie={movie} />
+                        </Suspense>
+                    </div>
+                ))}
             </div>
         </div>
     );
 }
+
+

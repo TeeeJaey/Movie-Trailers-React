@@ -23,7 +23,24 @@ class Utilities
 		return yyyy + MM + dd+  hh + mm + ss;
 	}
 
-	
+
+	static splitList(list,parts) {
+
+		let pages = [];
+		let currPage = [];
+		for (let i = 0; i < list.length; i++) {
+			if (i % parts == 0) {
+				pages.push(currPage);
+				currPage = [];
+			}
+			currPage.push(list[i]);
+		}
+
+		if (currPage != []) 
+			pages.push(currPage);
+
+		return pages;
+	}
 }
 
 export default Utilities;

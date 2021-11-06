@@ -38,7 +38,13 @@ function reducer(state = defaultState, action)
         case Constants.StoreActions.SetFullData : {
             let newState = {...state};
             newState.languageList =  [...action.payload.data.languageList];
-            newState.moviesData = {...action.payload.data.moviesData};
+            let moviesList = [];
+            for(const key in action.payload.data.moviesData) {
+                let movie = action.payload.data.moviesData[key];
+                moviesList.push(movie);
+            }
+            newState.moviesList =  [...moviesList];
+
             newState.genreList = getGenres(action.payload.data.moviesData);
             return newState;
         }
