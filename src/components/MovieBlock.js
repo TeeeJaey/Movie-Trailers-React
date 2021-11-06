@@ -4,8 +4,8 @@ import { MdThumbUp } from "react-icons/md";
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 
-import '../Styles/MovieBlock.css';
-import startBtnImage from "../Images/start-btn.png";
+import '../styles/MovieBlock.css';
+import startBtnImage from "../images/start-btn.png";
 
 export default function MovieBlock({movie}) {
     
