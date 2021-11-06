@@ -1,11 +1,14 @@
 import React, { useState, useEffect, Suspense } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import ReactDOM from 'react-dom';
+import { useDispatch, useSelector, Provider } from 'react-redux';
 
+import store from '../store/Store.js';
 import '../styles/Dashboard.css';
 import AppliedFilters from "./AppliedFilters";
 import Constants from "../utils/Constants";
 import Utilities from "../utils/Utilities";
 import useScrollEffect from "../utils/ScrollEffect";
+import Trailer from "./Trailer";
 
 const MovieBlock = React.lazy(() => import("./MovieBlock"));
 
@@ -14,6 +17,7 @@ export default function Dashboard() {
     const sortBy = useSelector(state => state.sortBy);
     const languageFilter = useSelector(state => state.languageFilter);
     const genreFilter = useSelector(state => state.genreFilter);
+    const runningTrailerID = useSelector(state => state.runningTrailerID);
     
     let filteredMoviesList = [];
 
@@ -44,23 +48,46 @@ export default function Dashboard() {
         }
     
     }
-
+    
     const listItems = useScrollEffect(filteredMoviesList, [moviesList, sortBy, languageFilter, genreFilter]);
+
+    useEffect(()=>{
+
+        const oldTrailerNodes = document.getElementsByClassName("trailer-component");
+        if(oldTrailerNodes && oldTrailerNodes.length > 0)
+            oldTrailerNodes[0].parentNode.removeChild(oldTrailerNodes[0]);
+
+        if(runningTrailerID && runningTrailerID != "") {
+            const movie = moviesList.find(m => m.EventCode === runningTrailerID);
+            
+
+            const movieListElement = document.getElementsByClassName("movie-list")[0];
+            const movieBlockNode = document.getElementById(runningTrailerID);
+
+            const TrailerComponent = document.createElement("div");
+            TrailerComponent.className = "trailer-component";
+            TrailerComponent.id = "trailer-component-" + runningTrailerID;
+            movieListElement.insertBefore(TrailerComponent , movieBlockNode);
+            TrailerComponent.style.width = "100%";
+
+            ReactDOM.render(
+                <Provider store={store} >
+                    <Trailer movie={movie} />
+                </Provider>,
+                document.getElementById(TrailerComponent.id)
+            );
+        }
+    }, [runningTrailerID]);
 
     return (
         <div className="dashboard">
             <AppliedFilters/>
 
             <div className="movie-list">
-                {listItems && listItems.map((movie,key) => (
-                    <div key={movie.EventCode + key} >
-                                    
-                        <iframe width="450" height="300" title={movie.EventTitle} style={{display:"none"}}
-                                src={"https://www.youtube.com/embed/" + movie.TrailerURL.split("=")[1].split("&")[0]} >
-                        </iframe>
-                        
+                {listItems && listItems.map((movie) => (
+                    <div key={movie.EventCode} id={movie.EventCode} >
                         <Suspense fallback={<div style={{display:"none"}}></div>} >
-                            <MovieBlock key={movie.EventCode + key}  movie={movie} />
+                            <MovieBlock key={movie.EventCode}  movie={movie} />
                         </Suspense>
                     </div>
                 ))}

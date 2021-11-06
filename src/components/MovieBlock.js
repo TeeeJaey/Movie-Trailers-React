@@ -1,21 +1,23 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { MdThumbUp } from "react-icons/md";
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 
 import '../styles/MovieBlock.css';
 import startBtnImage from "../images/start-btn.png";
+import Actions from "../store/Actions";
 
-export default function MovieBlock({movie}) {
-    
+export default function MovieBlock({movie, select}) {
+    const disptch = useDispatch();
+
     const months = ["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 
     const date = movie.TrailerURLUploadDate.split('-');
     const year = parseInt(date[0]);
     const month = months[parseInt(date[1])];
 
-    return  <div key={movie.EventCode} className="movie">
+    return  <div key={movie.EventCode} className="movie" onClick={()=>disptch(Actions.RunTrailer(movie.EventCode))} >
                 <div className="movie-image">
                     <div className="movie-date">
                         <span className="month">{month}</span>

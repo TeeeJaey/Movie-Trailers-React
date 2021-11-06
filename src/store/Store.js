@@ -3,13 +3,13 @@ import Constants from "../utils/Constants.js";
 
 const defaultState = {
     showingReleasedMovies: false,
-    languageList: [], 
-    moviesData: {}, 
+    languageList: [],
+    moviesList: [],
     sortBy: Constants.SortBy.Popular,
     languageFilter: [],
     genreList: [],
     genreFilter: [],
-    runningTrailer: ""
+    runningTrailerID: ""
 };
 
 function getGenres(moviesData) {
@@ -47,18 +47,21 @@ function reducer(state = defaultState, action)
             newState.moviesList =  [...moviesList];
 
             newState.genreList = getGenres(action.payload.data.moviesData);
+            newState.runningTrailerID = "";
             return newState;
         }
 
         case Constants.StoreActions.SetSortBy : {
             let newState = {...state};
             newState.sortBy = action.payload.sortBy;
+            newState.runningTrailerID = "";
             return newState;
         }
         
         case Constants.StoreActions.ToggleLanguageFilter : {
             let newState = {...state};
             newState.languageFilter = [...state.languageFilter];
+            newState.runningTrailerID = "";
             if(action.payload.add)
                 newState.languageFilter.push(action.payload.filter);
             else
@@ -69,6 +72,7 @@ function reducer(state = defaultState, action)
         case Constants.StoreActions.ToggleGenreFilter : {
             let newState = {...state};
             newState.genreFilter = [...state.genreFilter];
+            newState.runningTrailerID = "";
             if(action.payload.add)
                 newState.genreFilter.push(action.payload.filter);
             else
@@ -79,12 +83,13 @@ function reducer(state = defaultState, action)
         case Constants.StoreActions.ToggleReleasedMovies : {
             let newState = {...state};
             newState.showingReleasedMovies = action.payload.showing;
+            newState.runningTrailerID = "";
             return newState;
         }
         
         case Constants.StoreActions.RunTrailer : {
             let newState = {...state};
-            newState.runningTrailer = action.payload.movieID;
+            newState.runningTrailerID = action.payload.movieID;
             return newState;
         }
         
