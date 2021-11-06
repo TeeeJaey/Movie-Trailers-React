@@ -8,7 +8,8 @@ const defaultState = {
     sortBy: Constants.SortBy.Popular,
     languageFilter: [],
     genreList: [],
-    genreFilter: []
+    genreFilter: [],
+    runningTrailer: ""
 };
 
 function getGenres(moviesData) {
@@ -78,6 +79,12 @@ function reducer(state = defaultState, action)
         case Constants.StoreActions.ToggleReleasedMovies : {
             let newState = {...state};
             newState.showingReleasedMovies = action.payload.showing;
+            return newState;
+        }
+        
+        case Constants.StoreActions.RunTrailer : {
+            let newState = {...state};
+            newState.runningTrailer = action.payload.movieID;
             return newState;
         }
         

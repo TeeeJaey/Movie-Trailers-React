@@ -59,6 +59,17 @@ class Actions
         };
         return action;
     }
+
+    static RunTrailer(movieID) {
+
+        const action = {
+            type : Constants.StoreActions.RunTrailer,
+            payload : {
+                movieID: movieID
+            }
+        };
+        return action;
+    }
     
 }
 

@@ -8,7 +8,8 @@ class Constants
             SetSortBy:"SetSortBy",
             ToggleLanguageFilter:"ToggleLanguageFilter",
             ToggleGenreFilter:"ToggleGenreFilter",
-            ToggleReleasedMovies : "ToggleReleasedMovies"
+            ToggleReleasedMovies : "ToggleReleasedMovies",
+            RunTrailer : "RunTrailer"
         };
         return StoreActions;
     }
