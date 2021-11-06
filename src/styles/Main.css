@@ -1,0 +1,24 @@
+body {
+  margin: 0px;
+  font-size: 14px;
+  background: #1c1c1c;
+  color: white;
+}
+
+.main {
+  font-family: sans-serif;
+}
+
+/* ScrollBar */
+::-webkit-scrollbar {
+  width: 5px;
+  cursor: pointer;
+}
+
+::-webkit-scrollbar-track {
+  background: #1c1c1c; 
+}
+ 
+::-webkit-scrollbar-thumb {
+  background: #49ba8e; 
+}

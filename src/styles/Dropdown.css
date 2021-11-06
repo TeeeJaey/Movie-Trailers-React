@@ -1,0 +1,131 @@
+
+/* Dropdown */
+
+.dropdown-menu::-webkit-scrollbar {
+    width: 0;  /* Remove scrollbar space */
+    background: transparent;  /* Optional: just make scrollbar invisible */
+}
+
+.dropdown-btn {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0px 10px;
+    color: #49ba8e;
+    border: 1px solid #49ba8e;
+    font-size: 12px;
+    width: 120px;
+    min-width: 120px;
+    height: 32px;
+}
+
+.dropdown-menu {
+    z-index: 3000;
+    background: #323232;
+    color:white;
+    cursor: pointer;
+    display: none;
+    margin: 0px 10px;
+    font-size: 12px; 
+    min-width: 120px;
+    width: 120px;
+    max-height: 70vh;
+    overflow-y: scroll;
+}
+.dropdown-item {
+    display: inline-flex;
+    opacity: 0.75;
+    color:white;
+    font-size: 12px;
+    height: 30px;
+}
+.dropdown-item:hover {
+    background: #000;
+    color: #49ba8e;
+}
+
+.dropdown-item-checkbox{
+    margin-right: 8px;
+    margin-top: 5px;
+    cursor: pointer;
+    height: 12px;
+    width: 14px;
+    border: 1px solid #49ba8e;
+    font-size: 10px;
+}
+
+.dropdown-item-checkbox.checked{
+    font-weight: bold;
+    background-color: #49ba8e;
+}
+
+.dropdown-item:hover > .dropdown-item-checkbox.checked {
+    color: white;
+}
+
+.dropdown-item-checkbox span{
+    display: none;
+}
+
+.dropdown-item-checkbox.checked span{
+    display: block;
+    position: relative;
+    top: -2px;
+    left: 1px; 
+}
+.dropdown:hover > .dropdown-menu{
+    display: block;
+}
+.dropdown:hover > .dropdown-btn{
+    color: #fff;
+}
+
+.dropdown-icon {
+    vertical-align: super;
+}
+
+.dropdown .ellipsis {
+    margin:auto;
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 80px;
+}
+
+@media only screen and (max-width:800px) {
+
+    .dropdown {
+        width: 30%;
+        min-width: 30%;
+    }
+    .dropdown-menu {
+        width: 100%;
+        min-width: 100%;
+    }
+    .dropdown-btn {
+        width: 100%;
+        min-width: 100%;
+    }
+    .dropdown .ellipsis {
+        width: 80%;
+    }
+}
+
+@media only screen and (max-width:450px) {
+
+    .dropdown-menu {
+        width: 120px;
+        min-width: 120px;
+    }
+    .dropdown-btn {
+        padding: 0px 5px;
+        font-size: 10px;
+        margin: 0px 8px;
+    }
+    .dropdown-label {
+        width:fit-content;
+        min-width: 60px;
+    }
+}

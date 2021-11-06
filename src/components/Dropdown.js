@@ -1,6 +1,6 @@
 import React from "react";
 import { FaCaretDown } from "react-icons/fa";
-import '../Styles/Dropdown.css';
+import '../styles/Dropdown.css';
 
 export default function Dropdown(props) {
 

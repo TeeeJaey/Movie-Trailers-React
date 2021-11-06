@@ -1,0 +1,66 @@
+
+.header {
+  position: fixed;
+  top:0px;
+  z-index: 1000;
+  padding: 0px;
+  margin: 0px;
+  display: flex;
+  background: #000000;
+  min-height: 50px;
+  width: 100%;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.header-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-title {
+  margin: 0px;
+  font-size: 16px;
+  padding: 10px;
+  font-family: "Comic Sans MS";
+}
+
+.header-button {
+  margin-left: 10px;
+  text-transform: uppercase;
+  background: #333333;
+  color: white;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.header-button:hover {
+  color: white;
+}
+
+.header-button.active {
+  background: #49ba8e;
+  cursor: default;
+}
+
+  
+@media only screen and (max-width:800px) {
+
+    .header {
+      min-height: 100px;
+    }
+
+    .header-item {
+      justify-content: space-between;
+      width: 95%;
+    }
+}
+  
+@media only screen and (max-width:450px) {
+  
+    .header-button {
+      font-size: 10px;
+      margin:0px;
+    }
+}

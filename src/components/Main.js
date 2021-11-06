@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import config from "../config.json";
 import Header from "./Header.js";
-import Actions from "../Store/Actions";
+import Actions from "../store/Actions";
 import Dashboard from "./Dashboard";
-import '../Styles/Main.css';
+import '../styles/Main.css';
 
 export default function Main() {
     const dispatch = useDispatch();

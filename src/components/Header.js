@@ -1,8 +1,8 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Dropdown from "./Dropdown.js";
-import Actions from "../Store/Actions";
-import '../Styles/Header.css';
+import Actions from "../store/Actions";
+import '../styles/Header.css';
 
 export default function Header() {
     const dispatch = useDispatch();

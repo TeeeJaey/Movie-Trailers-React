@@ -1,10 +1,10 @@
 import React, { useState, useEffect, Suspense } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import '../Styles/Dashboard.css';
+import '../styles/Dashboard.css';
 import AppliedFilters from "./AppliedFilters";
-import Constants from "../Utils/Constants";
-import Utilities from "../Utils/Utilities";
+import Constants from "../utils/Constants";
+import Utilities from "../utils/Utilities";
 
 const MovieBlock = React.lazy(() => import("./MovieBlock"));
 
