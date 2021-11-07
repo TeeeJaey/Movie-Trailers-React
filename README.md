@@ -3,7 +3,7 @@
 A Movie trailers application to watch trailers of different movies, each having genres, languages etc.
 This app was made with react and is responsive enough to be viewed on any device.
 
-Checkout on [CodeSandbox](https://codesandbox.io/s/github/TeeeJaey/MovieTrailers-Reactp).
+Checkout on [CodeSandbox](https://codesandbox.io/s/github/teeejaey/movietrailers-react).
 
 ## Available Scripts
 
