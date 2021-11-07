@@ -34,10 +34,10 @@ export default function MovieBlock({movie, select}) {
                     <div className="movie-rating">
                         <div className="flex-evenly">
                             <MdThumbUp className="thumbsup-ico"/>
-                            <div>{movie.wtsPerc}%</div>
+                            <div>{movie.ratings.wtsPerc}%</div>
                         </div>
                         <div className="flex-evenly">
-                            <div className="vote-count">{movie.wtsCount} votes</div>
+                            <div className="vote-count">{movie.ratings.wtsCount} votes</div>
                         </div>
                     </div>
                 </div>

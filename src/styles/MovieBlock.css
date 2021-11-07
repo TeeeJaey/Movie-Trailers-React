@@ -7,6 +7,12 @@
     font-size: 12px;
     margin: 5px 0px;
     width: 180px;
+    opacity: 0.8;
+    
+    position: relative;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
 }
 
 .movie-list .movie-image {
@@ -79,3 +85,4 @@
 .movie-rating .vote-count {
     font-size: 11px;
 }
+

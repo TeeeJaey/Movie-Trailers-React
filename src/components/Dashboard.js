@@ -69,7 +69,6 @@ export default function Dashboard() {
             const TrailerComponent = document.createElement("div");
             TrailerComponent.className = "trailer-component";
             TrailerComponent.id = "trailer-component-" + runningTrailerID;
-            TrailerComponent.style.width = "100%";
 
             let rightNode = movieBlockNode;
             let leftNode = rightNode.previousElementSibling;
