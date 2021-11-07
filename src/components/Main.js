@@ -8,6 +8,9 @@ import Dashboard from "./Dashboard";
 import '../styles/Main.css';
 
 export default function Main() {
+    const moviesList = useSelector(state => state.moviesList);
+    const runningTrailerID = useSelector(state => state.runningTrailerID);
+
     const dispatch = useDispatch();
 
     React.useEffect(() => {
@@ -18,8 +21,16 @@ export default function Main() {
         });
     }, []);
 
+    let bgImage = "";
+    if(runningTrailerID && runningTrailerID != "") {
+        const movie = moviesList.find(m => m.EventCode === runningTrailerID);
+        if(movie)
+            bgImage = movie.EventImageUrl;
+    }
+
     return (
         <div className="main">
+            <div class="blur-bg" style={{backgroundImage:"url(" + bgImage + ")"}}></div>
             <Header />
             <Dashboard/>
         </div>

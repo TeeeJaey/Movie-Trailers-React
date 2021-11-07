@@ -5,7 +5,23 @@ body {
   color: white;
 }
 
+.blur-bg {    
+    -webkit-transition: background-image 1s ease-in-out;
+    -webkit-filter: blur(75px) brightness(0.35);
+    height: 100vh;
+    width: 100vw;
+
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    position: fixed;
+    top:0;
+    left:0;
+}
+
 .main {
+  background: #1c1c1c;
   font-family: sans-serif;
 }
 
