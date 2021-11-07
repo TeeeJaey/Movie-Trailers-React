@@ -122,6 +122,11 @@
 .watch-qstn .icon.yes {
     border: 0.5px solid #49ba8e;
 }
+.watch-qstn .icon.yes:hover {
+    background: #49ba8e;
+    color:#eee;
+}
+
 
 .watch-qstn .maybe {
     color: #fea502;
@@ -130,12 +135,20 @@
     border: 0.5px solid #fea502;
     padding: 7px;
 }
+.watch-qstn .icon.maybe:hover {
+    background: #fea502;
+    color:#fff;
+}
 
 .watch-qstn .no {
     color: #b24142;
 }
 .watch-qstn .icon.no {
     border: 0.5px solid #b24142;
+}
+.watch-qstn .icon.no:hover {
+    background: #b24142;
+    color:#eee;
 }
 
 .watch-qstn .text {
