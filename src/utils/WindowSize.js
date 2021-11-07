@@ -1,3 +1,7 @@
+/*
+    A custom reusable hook to capture change in the window size
+*/
+
 import { useLayoutEffect, useState } from 'react';
 
 export default function useWindowSize() {

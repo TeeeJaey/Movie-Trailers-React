@@ -1,6 +1,10 @@
+
+//#region "Imports"
 import { createStore } from "redux";
 import Constants from "../utils/Constants.js";
+//#endregion
 
+// Default state for our redux store
 const defaultState = {
     showingReleasedMovies: false,
     languageList: [],
@@ -12,6 +16,7 @@ const defaultState = {
     runningTrailerID: ""
 };
 
+//#region "Get a full list of genres from the moviesData"
 function getGenres(moviesData) {
     let genres = [];
     if(!moviesData) 
@@ -30,12 +35,14 @@ function getGenres(moviesData) {
     let setGenre = new Set(genres);
     return [...setGenre].sort();
 };
+//#endregion
 
-
+//#region "Reducer function for our redux store"
 function reducer(state = defaultState, action) 
 {
     switch(action.type) 
     {
+        // Set the full data which includes list of movies, languages, genres (Run just once on initial load)
         case Constants.StoreActions.SetFullData : {
             let newState = {...state};
             newState.languageList =  [...action.payload.data.languageList];
@@ -51,6 +58,7 @@ function reducer(state = defaultState, action)
             return newState;
         }
 
+        // Set the sortBy field from the first dropdown (Popular or Fresh)
         case Constants.StoreActions.SetSortBy : {
             let newState = {...state};
             newState.sortBy = action.payload.sortBy;
@@ -58,6 +66,7 @@ function reducer(state = defaultState, action)
             return newState;
         }
         
+        // Set the language filter list from the second dropdown (English, Hindi, Marathi ...)
         case Constants.StoreActions.ToggleLanguageFilter : {
             let newState = {...state};
             newState.languageFilter = [...state.languageFilter];
@@ -69,6 +78,7 @@ function reducer(state = defaultState, action)
             return newState;
         }
         
+        // Set the genre filter list from the third dropdown (Action, Comedy, Drama ...)
         case Constants.StoreActions.ToggleGenreFilter : {
             let newState = {...state};
             newState.genreFilter = [...state.genreFilter];
@@ -80,6 +90,7 @@ function reducer(state = defaultState, action)
             return newState;
         }
         
+        // Set the showing flag from the two header buttons (Coming Soon or Now showing)
         case Constants.StoreActions.ToggleReleasedMovies : {
             let newState = {...state};
             newState.showingReleasedMovies = action.payload.showing;
@@ -87,6 +98,7 @@ function reducer(state = defaultState, action)
             return newState;
         }
         
+        // Set the movie ID for the current running trailer and start the trailer (Called when user clicks on any movie card/image)
         case Constants.StoreActions.RunTrailer : {
             let newState = {...state};
             newState.runningTrailerID = action.payload.movieID;
@@ -98,7 +110,9 @@ function reducer(state = defaultState, action)
         }
     }
 }
+//#endregion
 
+//#region "Redux Store"
 const store  = createStore(reducer);
 export default store;
-
+//#endregion

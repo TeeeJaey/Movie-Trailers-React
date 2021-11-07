@@ -1,3 +1,4 @@
+//Static Action generator class for Redux
 
 import Constants from "../utils/Constants.js";
 

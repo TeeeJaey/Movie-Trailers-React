@@ -1,3 +1,10 @@
+/*
+    The Main Dashboard component - starts below the Header
+    Includes the AppliedFilters component
+    Calls the MovieBlock component for each movie in the movie list
+*/
+
+//#region "Imports"
 import React, { useEffect, Suspense } from "react";
 import ReactDOM from 'react-dom';
 import { useSelector, Provider } from 'react-redux';
@@ -10,16 +17,18 @@ import useScrollEffect from "../utils/ScrollEffect";
 import Trailer from "./Trailer";
 import useWindowSize from "../utils/WindowSize.js";
 
-const MovieBlock = React.lazy(() => import("./MovieBlock"));
+const MovieCard = React.lazy(() => import("./MovieCard"));
+//#endregion
 
 export default function Dashboard() {
+    //#region "Definitions"
     const [width, height] = useWindowSize();
-
     const moviesList = useSelector(state => state.moviesList);
     const sortBy = useSelector(state => state.sortBy);
     const languageFilter = useSelector(state => state.languageFilter);
     const genreFilter = useSelector(state => state.genreFilter);
     const runningTrailerID = useSelector(state => state.runningTrailerID);
+    //#endregion
 
     //#region "Filtering and Sorting the Movie List"
     let filteredMoviesList = [];
@@ -102,7 +111,7 @@ export default function Dashboard() {
     }, [runningTrailerID]);
     //#endregion
     
-
+    //#region "Move the trailer above the selected row on resize"
     useEffect(()=>{
         
         if(runningTrailerID && runningTrailerID !== "") {
@@ -138,7 +147,9 @@ export default function Dashboard() {
         }
         
     },[width]);
-    
+    //#endregion
+
+    //#region "Render"
     return (
         <div className="dashboard">
             <AppliedFilters/>
@@ -147,13 +158,12 @@ export default function Dashboard() {
                 {listItems && listItems.map((movie) => (
                     <div key={movie.EventCode} id={movie.EventCode} >
                         <Suspense fallback={<div style={{display:"none"}}></div>} >
-                            <MovieBlock key={movie.EventCode}  movie={movie} />
+                            <MovieCard key={movie.EventCode}  movie={movie} />
                         </Suspense>
                     </div>
                 ))}
             </div>
         </div>
     );
+    //#endregion
 }
-
-

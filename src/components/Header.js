@@ -1,10 +1,17 @@
+/*
+    Topmost fixed header includes the Title, buttons and dropdowns
+*/
+
+//#region "Imports"
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Dropdown from "./Dropdown.js";
 import Actions from "../store/Actions";
 import '../styles/Header.css';
+//#endregion
 
 export default function Header() {
+    //#region "Definitions"
     const dispatch = useDispatch();
 
     const sortBy = useSelector(state => state.sortBy);
@@ -14,10 +21,14 @@ export default function Header() {
     
     let languageFilter = useSelector(state => state.languageFilter);
     let genreFilter = useSelector(state => state.genreFilter);
+    //#endregion
 
+    //#region "Set default dropdown label text, if no filters are chosen"
     if(!languageFilter || languageFilter.length === 0) languageFilter = ["All Languages"];
     if(!genreFilter || genreFilter.length === 0) genreFilter = ["All Genres"];
+    //#endregion
 
+    //#region "Render"
     return (
         <div className="header">
             <div className="header-item">
@@ -43,4 +54,5 @@ export default function Header() {
             </div>
         </div>
     );
+    //#endregion
 }

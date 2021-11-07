@@ -1,3 +1,4 @@
+//Static Constants class
 
 class Constants
 {   

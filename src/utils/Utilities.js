@@ -1,4 +1,4 @@
-
+//Static Utilities class
 
 class Utilities
 {
