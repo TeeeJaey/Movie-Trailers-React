@@ -6,21 +6,23 @@ import store from '../store/Store.js';
 import '../styles/Dashboard.css';
 import AppliedFilters from "./AppliedFilters";
 import Constants from "../utils/Constants";
-import Utilities from "../utils/Utilities";
 import useScrollEffect from "../utils/ScrollEffect";
 import Trailer from "./Trailer";
+import useWindowSize from "../utils/WindowSize.js";
 
 const MovieBlock = React.lazy(() => import("./MovieBlock"));
 
 export default function Dashboard() {
+    const [width, height] = useWindowSize();
+
     const moviesList = useSelector(state => state.moviesList);
     const sortBy = useSelector(state => state.sortBy);
     const languageFilter = useSelector(state => state.languageFilter);
     const genreFilter = useSelector(state => state.genreFilter);
     const runningTrailerID = useSelector(state => state.runningTrailerID);
-    
-    let filteredMoviesList = [];
 
+    //#region "Filtering and Sorting the Movie List"
+    let filteredMoviesList = [];
     if(moviesList && moviesList.length > 0) {
         filteredMoviesList = [...moviesList];
 
@@ -48,11 +50,14 @@ export default function Dashboard() {
         }
     
     }
-    
+    //#endregion
+
+    //#region "Scrolling effect to load and render more movies on scroll"
     const listItems = useScrollEffect(filteredMoviesList, [moviesList, sortBy, languageFilter, genreFilter]);
+    //#endregion
 
+    //#region "Render the trailer node above the selected row"
     useEffect(()=>{
-
         const oldTrailerNodes = document.getElementsByClassName("trailer-component");
         if(oldTrailerNodes && oldTrailerNodes.length > 0)
             oldTrailerNodes[0].parentNode.removeChild(oldTrailerNodes[0]);
@@ -60,15 +65,33 @@ export default function Dashboard() {
         if(runningTrailerID && runningTrailerID != "") {
             const movie = moviesList.find(m => m.EventCode === runningTrailerID);
             
-
-            const movieListElement = document.getElementsByClassName("movie-list")[0];
             const movieBlockNode = document.getElementById(runningTrailerID);
-
             const TrailerComponent = document.createElement("div");
             TrailerComponent.className = "trailer-component";
             TrailerComponent.id = "trailer-component-" + runningTrailerID;
-            movieListElement.insertBefore(TrailerComponent , movieBlockNode);
             TrailerComponent.style.width = "100%";
+
+            let rightNode = movieBlockNode;
+            let leftNode = rightNode.previousElementSibling;
+            
+            if(leftNode !== null) {
+                let rightTop = rightNode.getBoundingClientRect().top;
+                let leftTop = leftNode.getBoundingClientRect().top;
+
+                while(rightTop == leftTop) {
+                    leftNode = leftNode.previousElementSibling;
+                    rightNode = rightNode.previousElementSibling;
+                    
+                    if(leftNode == null) 
+                        break;
+
+                    rightTop = rightNode.getBoundingClientRect().top;
+                    leftTop = leftNode.getBoundingClientRect().top;
+                }
+            }
+
+            const movieListElement = document.getElementsByClassName("movie-list")[0];
+            movieListElement.insertBefore(TrailerComponent , rightNode);
 
             ReactDOM.render(
                 <Provider store={store} >
@@ -78,7 +101,45 @@ export default function Dashboard() {
             );
         }
     }, [runningTrailerID]);
+    //#endregion
+    
 
+    useEffect(()=>{
+        
+        if(runningTrailerID && runningTrailerID != "") {
+            const trailerNodes = document.getElementsByClassName("trailer-component");
+            if(trailerNodes && trailerNodes.length > 0) {
+                const TrailerComponent = trailerNodes[0];
+                TrailerComponent.parentNode.removeChild(TrailerComponent);
+
+                const movieBlockNode = document.getElementById(runningTrailerID);
+
+                let rightNode = movieBlockNode;
+                let leftNode = rightNode.previousElementSibling;
+                
+                if(leftNode !== null) {
+                    let rightTop = rightNode.getBoundingClientRect().top;
+                    let leftTop = leftNode.getBoundingClientRect().top;
+
+                    while(rightTop == leftTop) {
+                        leftNode = leftNode.previousElementSibling;
+                        rightNode = rightNode.previousElementSibling;
+                        
+                        if(leftNode == null) 
+                            break;
+
+                        rightTop = rightNode.getBoundingClientRect().top;
+                        leftTop = leftNode.getBoundingClientRect().top;
+                    }
+                }
+
+                const movieListElement = document.getElementsByClassName("movie-list")[0];
+                movieListElement.insertBefore(TrailerComponent , rightNode);
+            }
+        }
+        
+    },[width]);
+    
     return (
         <div className="dashboard">
             <AppliedFilters/>
