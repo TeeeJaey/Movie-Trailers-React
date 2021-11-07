@@ -1,20 +1,14 @@
 import React, { useEffect, useRef } from "react";
-import ReactDOM from 'react-dom';
-import { useDispatch, useSelector } from "react-redux";
 import { MdThumbDown, MdThumbUp } from "react-icons/md";
 import { GoCalendar } from "react-icons/go";
 import { BiQuestionMark } from "react-icons/bi"; 
 
-import Actions from "../store/Actions";
 import '../styles/Trailer.css';
 import useWindowSize from "../utils/WindowSize";
 
 export default function Trailer({movie}) {
     const [width, height] = useWindowSize();
-    const disptch = useDispatch();
     const trailerRef = useRef(null)
-
-    const months = ["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 
     const date = movie.ShowDate.split(' ');
     const day = date[0];
@@ -24,13 +18,13 @@ export default function Trailer({movie}) {
     const trailerID = movie.TrailerURL.split("v=")[1].split("&")[0];
     
     useEffect(()=>{
-        if(trailerID && trailerID!="") {
+        if(trailerID && trailerID !== "") {
             window.scrollTo(0, trailerRef.current.offsetTop - 130);
         }
     }, [trailerID, width]);
 
     return  <div ref={trailerRef} className="trailer-container" >
-                <iframe id={trailerID} className="trailer-iframe"
+                <iframe id={trailerID} title={movie.EventTitle} className="trailer-iframe"
                         src = {"http://www.youtube.com/embed/" + trailerID + "?autoplay=1&mute=1&enablejsapi=1"} 
                         frameborder="0" allowtransparency="true" allowFullScreen="true"
                 />

@@ -1,6 +1,6 @@
-import React, { useState, useEffect, Suspense } from "react";
+import React, { useEffect, Suspense } from "react";
 import ReactDOM from 'react-dom';
-import { useDispatch, useSelector, Provider } from 'react-redux';
+import { useSelector, Provider } from 'react-redux';
 
 import store from '../store/Store.js';
 import '../styles/Dashboard.css';
@@ -62,7 +62,7 @@ export default function Dashboard() {
         if(oldTrailerNodes && oldTrailerNodes.length > 0)
             oldTrailerNodes[0].parentNode.removeChild(oldTrailerNodes[0]);
 
-        if(runningTrailerID && runningTrailerID != "") {
+        if(runningTrailerID && runningTrailerID !== "") {
             const movie = moviesList.find(m => m.EventCode === runningTrailerID);
             
             const movieBlockNode = document.getElementById(runningTrailerID);
@@ -77,7 +77,7 @@ export default function Dashboard() {
                 let rightTop = rightNode.getBoundingClientRect().top;
                 let leftTop = leftNode.getBoundingClientRect().top;
 
-                while(rightTop == leftTop) {
+                while(rightTop === leftTop) {
                     leftNode = leftNode.previousElementSibling;
                     rightNode = rightNode.previousElementSibling;
                     
@@ -105,7 +105,7 @@ export default function Dashboard() {
 
     useEffect(()=>{
         
-        if(runningTrailerID && runningTrailerID != "") {
+        if(runningTrailerID && runningTrailerID !== "") {
             const trailerNodes = document.getElementsByClassName("trailer-component");
             if(trailerNodes && trailerNodes.length > 0) {
                 const TrailerComponent = trailerNodes[0];
@@ -120,11 +120,11 @@ export default function Dashboard() {
                     let rightTop = rightNode.getBoundingClientRect().top;
                     let leftTop = leftNode.getBoundingClientRect().top;
 
-                    while(rightTop == leftTop) {
+                    while(rightTop === leftTop) {
                         leftNode = leftNode.previousElementSibling;
                         rightNode = rightNode.previousElementSibling;
                         
-                        if(leftNode == null) 
+                        if(leftNode === null) 
                             break;
 
                         rightTop = rightNode.getBoundingClientRect().top;

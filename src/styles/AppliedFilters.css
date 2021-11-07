@@ -7,7 +7,6 @@
     padding-top: 10px;
     padding-left: 10px;
     padding-right: 10px;
-    font-size: 14px;
     color: #fff;
     display: inline-flex;
     flex-direction: row;
@@ -20,8 +19,9 @@
 }
 
 .applied-filters > .label {
-    width: 100px !important;
+    width: 100px;
     padding-bottom: 10px;
+    font-size: 14px;
 }
 
 .applied-filters .list {
@@ -61,10 +61,26 @@
     font-weight: bold;
 }
 
+/* Tablets */
 
 @media only screen and (max-width:800px) {
 
     .applied-filters {
         top: 100px;
+    }
+}
+
+/* Desktop */
+
+@media only screen and (min-width:1100px) {
+            
+        .applied-filters > .label {
+            width: 120px;
+            font-size: 16px;
+        }
+    .applied-filters > .list .filter-item {
+        margin: 0px 8px;
+        padding: 0px 12px;
+        font-size: 16px;
     }
 }

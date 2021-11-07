@@ -2,6 +2,8 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import config from "../config.json";
+import dummyData from "../dummyData.json";
+
 import Header from "./Header.js";
 import Actions from "../store/Actions";
 import Dashboard from "./Dashboard";
@@ -14,10 +16,16 @@ export default function Main() {
     const dispatch = useDispatch();
 
     React.useEffect(() => {
-        axios.get(config.ApiUrl).then((res) => {
+        axios.get(config.ApiUrl).then(res => {
         if (res.status === 200) {
             dispatch(Actions.SetFullData(res.data));
-        } else console.log("Error " + res.status);
+        } else {
+            console.log("Error " + res.status);
+            dispatch(Actions.SetFullData(dummyData));
+        }
+        }).catch(e =>{
+            console.log("Error " + e);
+            dispatch(Actions.SetFullData(dummyData));
         });
     }, []);
 
@@ -30,7 +38,7 @@ export default function Main() {
 
     return (
         <div className="main">
-            <div class="blur-bg" style={{backgroundImage:"url(" + bgImage + ")"}}></div>
+            <div className="blur-bg" style={{backgroundImage:"url(" + bgImage + ")"}}></div>
             <Header />
             <Dashboard/>
         </div>

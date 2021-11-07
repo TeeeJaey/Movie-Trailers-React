@@ -29,14 +29,14 @@ class Utilities
 		let pages = [];
 		let currPage = [];
 		for (let i = 0; i < list.length; i++) {
-			if (i % parts == 0) {
+			if (i % parts === 0) {
 				pages.push(currPage);
 				currPage = [];
 			}
 			currPage.push(list[i]);
 		}
 
-		if (currPage != []) 
+		if (currPage !== []) 
 			pages.push(currPage);
 
 		return pages;

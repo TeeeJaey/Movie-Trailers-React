@@ -43,6 +43,7 @@
 }
 
 .movie-image > .movie-date {
+    z-index: 100;
     position: absolute;
     right: 0px;
     top: 5px;
@@ -63,6 +64,7 @@
 }
 
 .movie-image > .movie-rating {
+    z-index: 100;
     position: absolute;
     right:0px;
     bottom:5px;
@@ -86,3 +88,17 @@
     font-size: 11px;
 }
 
+
+/* Desktop */
+
+@media only screen and (min-width:1100px) {
+            
+    .movie-list .movie{
+        margin: 15px;
+    }
+
+    .movie-list .movie .movie-name{
+        font-size: 14px;
+        margin: 8px 0px;
+    }
+}

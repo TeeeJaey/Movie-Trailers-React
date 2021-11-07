@@ -94,6 +94,9 @@
     width: 80px;
 }
 
+
+/* Tablets */
+
 @media only screen and (max-width:800px) {
 
     .dropdown {
@@ -113,6 +116,8 @@
     }
 }
 
+/* Mobile */
+
 @media only screen and (max-width:450px) {
 
     .dropdown-menu {
@@ -127,5 +132,43 @@
     .dropdown-label {
         width:fit-content;
         min-width: 60px;
+    }
+}
+
+
+/* Desktop */
+
+@media only screen and (min-width:1100px) {
+
+    .dropdown-menu {
+        width: 150px;
+        min-width: 150px;
+    }
+    .dropdown-btn {
+        padding: 0px 5px;
+        font-size: 14px;
+        margin: 0px 8px;
+        width: 150px;
+        min-width: 150px;
+        height: 35px;
+    }
+    .dropdown-label {
+        width:fit-content;
+        min-width: 100px;
+    }
+        
+    .dropdown-item {
+        font-size: 14px;
+        height: 35px;
+    }
+
+    .dropdown-item-checkbox{
+        margin-right: 8px;
+        margin-top: 5px;
+        cursor: pointer;
+        height: 14px;
+        width: 16px;
+        border: 1px solid #49ba8e;
+        font-size: 12px;
     }
 }
