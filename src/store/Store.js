@@ -37,6 +37,7 @@ function getGenres(moviesData) {
 };
 //#endregion
 
+//#region "Get a full list of languages from the moviesData"
 function getLanguages(moviesData) {
     let langs = [];
     if(!moviesData) 
@@ -51,6 +52,7 @@ function getLanguages(moviesData) {
     let setLang = new Set(langs);
     return [...setLang].sort();
 };
+//#endregion
 
 
 //#region "Reducer function for our redux store"

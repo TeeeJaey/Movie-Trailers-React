@@ -52,7 +52,6 @@ export default function useScrollEffect(mainList, dependencyArray) {
     }, dependencyArray);
     //#endregion
     
-
     //#region "useEffect to set the data after scrolled beyond the existing data"
     useEffect(() => {
         if (!isLoading) return;

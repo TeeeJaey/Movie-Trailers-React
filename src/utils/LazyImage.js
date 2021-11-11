@@ -1,13 +1,25 @@
+/*
+    A reusable image component to enable lazyloadng over the images 
+
+    Takes 3 arguments
+        src - actual image url
+        alt - alt data to be displayd
+        className - to add styles 
+*/
+
+//#region "Imports"
 import React, { useState, useEffect } from 'react'
-
-const placeHolder =
-  'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkqAcAAIUAgUW0RjgAAAAASUVORK5CYII='
-
+//#endregion
 
 export const LazyImage = ({ src, alt, className }) => {
-    const [imageSrc, setImageSrc] = useState(placeHolder)
-    const [imageRef, setImageRef] = useState()
-  
+
+    //#region "Definitions"
+    const [imageSrc, setImageSrc] = useState(placeHolder);
+    const [imageRef, setImageRef] = useState();
+    const placeHolder ='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkqAcAAIUAgUW0RjgAAAAASUVORK5CYII='
+    //#endregion
+    
+    //#region "useEffect to keep watch on component if its in the view and set the actual src"
     useEffect(() => {
       let observer
       let didCancel = false
@@ -32,7 +44,8 @@ export const LazyImage = ({ src, alt, className }) => {
             }
           )
           observer.observe(imageRef)
-        } else {
+        } 
+        else {
           // Old browsers fallback
           setImageSrc(src)
         }
@@ -43,8 +56,11 @@ export const LazyImage = ({ src, alt, className }) => {
         if (observer && observer.unobserve) {
           observer.unobserve(imageRef)
         }
-      }
-    })
+      };
+    });
+    //#endregion
   
+    //#region "Render"
     return <img className={className} ref={setImageRef} src={imageSrc} alt={alt} />
-  }
+    //#endregion
+}
