@@ -1,5 +1,5 @@
 /*
-    A Reusable component to enable infinite scrolling effect 
+    A custom reusable hook to enable infinite scrolling effect 
     for applications that have full list of data to be renderred
 
     Takes 2 arguments

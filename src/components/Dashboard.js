@@ -55,7 +55,7 @@ export default function Dashboard() {
             filteredMoviesList.sort((a,b) => b.trailerUploadDate - a.trailerUploadDate);
         }
         else if(sortBy === Constants.SortBy.Popular) {
-            filteredMoviesList.sort((a,b) => b.wtsCount - a.wtsCount);
+            filteredMoviesList.sort((a,b) => parseInt(b.ratings.wtsCount) - parseInt(a.ratings.wtsCount));
         }
     
     }
@@ -155,13 +155,16 @@ export default function Dashboard() {
             <AppliedFilters/>
 
             <div className="movie-list">
-                {listItems && listItems.map((movie) => (
+                {listItems && listItems.length > 0 && listItems.map((movie) => (
                     <div key={movie.EventCode} id={movie.EventCode} >
                         <Suspense fallback={<div style={{display:"none"}}></div>} >
                             <MovieCard key={movie.EventCode}  movie={movie} />
                         </Suspense>
                     </div>
                 ))}
+                {!listItems || listItems.length == 0 &&
+                    <div style={{marginTop:"100px"}}> No data found for the applied filter.</div>
+                }
             </div>
         </div>
     );

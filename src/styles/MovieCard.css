@@ -43,7 +43,7 @@
 }
 
 .movie-image > .movie-date {
-    z-index: 100;
+    z-index: 20;
     position: absolute;
     right: 0px;
     top: 5px;

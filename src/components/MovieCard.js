@@ -15,6 +15,7 @@ import 'react-lazy-load-image-component/src/effects/blur.css';
 import '../styles/MovieCard.css';
 import startBtnImage from "../images/start-btn.png";
 import Actions from "../store/Actions";
+import { LazyImage } from "../utils/LazyImage";
 //#endregion
 
 export default function MovieCard({movie}) {
@@ -34,7 +35,7 @@ export default function MovieCard({movie}) {
     //#region "Set a boolean field - whether to show the play icon on card (hidden when already playing)"
     let showPlay = (runningTrailerID && runningTrailerID == movie.EventCode) ? false : true ;
     //#endregion
-
+    
     //#region "Render"
     /*
         Render the Movie card related details on the card image
@@ -49,7 +50,7 @@ export default function MovieCard({movie}) {
                         <span className="year">{year}</span>
                     </div>
 
-                    <LazyLoadImage effect="blur" 
+                    <LazyImage
                         src={movie.EventImageUrl} 
                         className="image"
                         alt={movie.EventTitle} />

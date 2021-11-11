@@ -9,7 +9,7 @@ const defaultState = {
     showingReleasedMovies: false,
     languageList: [],
     moviesList: [],
-    sortBy: Constants.SortBy.Popular,
+    sortBy: "",
     languageFilter: [],
     genreList: [],
     genreFilter: [],
@@ -37,6 +37,22 @@ function getGenres(moviesData) {
 };
 //#endregion
 
+function getLanguages(moviesData) {
+    let langs = [];
+    if(!moviesData) 
+        return [];
+
+    for(const key in moviesData) {
+        let movie = moviesData[key];
+        let movieLang = movie.EventLanguage;
+        langs.push(movieLang);
+    }
+    
+    let setLang = new Set(langs);
+    return [...setLang].sort();
+};
+
+
 //#region "Reducer function for our redux store"
 function reducer(state = defaultState, action) 
 {
@@ -45,7 +61,7 @@ function reducer(state = defaultState, action)
         // Set the full data which includes list of movies, languages, genres (Run just once on initial load)
         case Constants.StoreActions.SetFullData : {
             let newState = {...state};
-            newState.languageList =  [...action.payload.data.languageList];
+            newState.languageList =  getLanguages(action.payload.data.moviesData);
             let moviesList = [];
             for(const key in action.payload.data.moviesData) {
                 let movie = action.payload.data.moviesData[key];
