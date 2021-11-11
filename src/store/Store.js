@@ -9,7 +9,7 @@ const defaultState = {
     showingReleasedMovies: false,
     languageList: [],
     moviesList: [],
-    sortBy: "",
+    sortBy: "Default",
     languageFilter: [],
     genreList: [],
     genreFilter: [],
