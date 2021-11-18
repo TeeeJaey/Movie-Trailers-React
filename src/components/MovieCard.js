@@ -13,7 +13,7 @@ import { MdThumbUp } from "react-icons/md";
 import '../styles/MovieCard.css';
 import startBtnImage from "../images/start-btn.png";
 import Actions from "../store/Actions";
-import { LazyImage } from "../utils/LazyImage";
+import LazyImage from "../utils/LazyImage";
 //#endregion
 
 export default function MovieCard({movie}) {

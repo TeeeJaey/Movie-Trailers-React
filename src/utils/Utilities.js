@@ -23,7 +23,6 @@ class Utilities
 		return yyyy + MM + dd+  hh + mm + ss;
 	}
 
-
 	static splitList(list,parts) {
 
 		let pages = [];
