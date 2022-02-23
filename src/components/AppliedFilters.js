@@ -23,25 +23,25 @@ export default function AppliedFilters() {
                 <div className="label">Applied Filters: </div> 
                 
                 <div className="list">
-                {languageFilter.map(filter => {
-                    return  <div key={filter} className="filter-item"> 
-                                <span> {filter} </span> 
-                                <span onClick={()=>dispatch(Actions.ToggleLanguageFilter(filter,false))} 
-                                        className="filter-cross" >
-                                    &#x2715;
-                                </span>
-                            </div>;
-                })}
-                
-                {genreFilter.map(filter => {
-                    return  <div key={filter} className="filter-item"> 
-                                <span> {filter} </span> 
-                                <span onClick={()=>dispatch(Actions.ToggleGenreFilter(filter,false))} 
-                                        className="filter-cross" >
-                                    &#x2715;
-                                </span>
-                            </div>;
-                })}
+                    {languageFilter.map(filter => {
+                        return  <div key={filter} className="filter-item"> 
+                                    <span> {filter} </span> 
+                                    <span onClick={()=>dispatch(Actions.ToggleLanguageFilter(filter,false))} 
+                                            className="filter-cross" >
+                                        &#x2715;
+                                    </span>
+                                </div>;
+                    })}
+                    
+                    {genreFilter.map(filter => {
+                        return  <div key={filter} className="filter-item"> 
+                                    <span> {filter} </span> 
+                                    <span onClick={()=>dispatch(Actions.ToggleGenreFilter(filter,false))} 
+                                            className="filter-cross" >
+                                        &#x2715;
+                                    </span>
+                                </div>;
+                    })}
                 </div>
             </div>;
     //#endregion
