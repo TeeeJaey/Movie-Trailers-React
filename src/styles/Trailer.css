@@ -1,15 +1,14 @@
-
-.trailer-component { 
-    padding:10px;
+.trailer-component {
+    padding: 10px;
     width: 100%;
 }
 
-.trailer-container { 
+.trailer-container {
     position: relative;
     overflow: hidden;
     padding-top: 35%;
     height: 60%;
-    -webkit-filter:none;
+    -webkit-filter: none;
 }
 .trailer-container > .trailer-iframe {
     position: absolute;
@@ -20,36 +19,36 @@
     width: 60%;
     height: 100%;
     border: none;
-    -webkit-filter:none;
+    -webkit-filter: none;
 }
 
-.trailer-container >.movie-details {    
-  background-color: rgba(0,0,0, 0.4); /* Black w/opacity/see-through */
-  width: 39%;
-  height: 100%;
-  padding: 10px;
+.trailer-container > .movie-details {
+    background-color: rgba(0, 0, 0, 0.4); /* Black w/opacity/see-through */
+    width: 39%;
+    height: 100%;
+    padding: 10px;
 
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 0;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
 }
 
-.movie-details > .title {   
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
+.movie-details > .title {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-weight: bold;
     font-size: 14px;
     margin-bottom: 5px;
 }
 
-.movie-details > .language {   
+.movie-details > .language {
     font-size: 11px;
     opacity: 0.6;
     text-transform: uppercase;
     margin-bottom: 5px;
 }
 
-.movie-details > .genre-list {   
+.movie-details > .genre-list {
     font-size: 9px;
     opacity: 0.6;
     text-transform: uppercase;
@@ -62,17 +61,16 @@
     margin-top: 5px;
     padding: 1px 10px;
     border-radius: 40px;
-    border: 0.5px solid white; 
+    border: 0.5px solid white;
     margin-right: 8px;
-} 
-
+}
 
 .rate-date {
-    margin:10px 0px;
+    margin: 10px 0px;
 }
 .rate-date .icon {
     font-size: 20px;
-    margin-right: 10px ;
+    margin-right: 10px;
 }
 
 .rate-date.flex-row {
@@ -102,7 +100,7 @@
     position: absolute;
     bottom: 20px;
     right: 0;
-    
+
     width: 100%;
 }
 
@@ -111,22 +109,21 @@
     height: 35px;
     border-radius: 100%;
     border: 0.5px solid white;
-    padding:9px;
+    padding: 9px;
     margin-bottom: 5px;
     cursor: pointer;
 }
 
 .watch-qstn .yes {
-    color: #49ba8e;
+    color: var(--theme-green);
 }
 .watch-qstn .icon.yes {
-    border: 0.5px solid #49ba8e;
+    border: 0.5px solid var(--theme-green);
 }
 .watch-qstn .icon.yes:hover {
-    background: #49ba8e;
-    color:#eee;
+    background: var(--theme-green);
+    color: #eee;
 }
-
 
 .watch-qstn .maybe {
     color: #fea502;
@@ -137,7 +134,7 @@
 }
 .watch-qstn .icon.maybe:hover {
     background: #fea502;
-    color:#fff;
+    color: #fff;
 }
 
 .watch-qstn .no {
@@ -148,7 +145,7 @@
 }
 .watch-qstn .icon.no:hover {
     background: #b24142;
-    color:#eee;
+    color: #eee;
 }
 
 .watch-qstn .text {
@@ -163,11 +160,9 @@
     align-items: center;
 }
 
-
 /* Tablets and Phones */
 
-@media only screen and (max-width:800px) {
-    
+@media only screen and (max-width: 800px) {
     .trailer-container {
         padding-top: 110%;
         height: 100%;
@@ -177,43 +172,40 @@
         width: 100%;
         height: calc(100% - 200px);
     }
-    .trailer-container >.movie-details { 
+    .trailer-container > .movie-details {
         height: 200px;
         top: calc(100% - 200px);
         width: 100%;
     }
     .watch-qstn.flex-row {
-        bottom:5px;
+        bottom: 5px;
     }
 }
 
-
 /* Desktop */
 
-@media only screen and (min-width:1100px) {
-
-    .movie-details > .title {   
+@media only screen and (min-width: 1100px) {
+    .movie-details > .title {
         font-size: 18px;
         margin-bottom: 10px;
     }
-    
-    .movie-details > .language {   
+
+    .movie-details > .language {
         font-size: 14px;
         opacity: 0.7;
     }
-    
-    .movie-details > .genre-list {   
+
+    .movie-details > .genre-list {
         font-size: 12px;
         opacity: 0.7;
     }
-    
+
     .genre-list > .genre {
         margin-top: 10px;
         padding: 2px 15px;
-        border: 1px solid white; 
+        border: 1px solid white;
         margin-right: 10px;
     }
-    
 
     .rate-date {
         margin: 15px 0px;

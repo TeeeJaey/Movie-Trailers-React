@@ -1,58 +1,55 @@
-/*
-    Topmost fixed header includes the Title, buttons and dropdowns
-*/
-
-//#region "Imports"
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Dropdown from "./Dropdown.js";
-import Actions from "../store/Actions";
-import '../styles/Header.css';
-//#endregion
+import { toggleReleasedMovies, setSortBy, toggleGenreFilter, toggleLanguageFilter } from "../store/actions.js";
+import "../styles/Header.css";
 
+// Topmost fixed header includes the Title, buttons and dropdowns
 export default function Header() {
-    //#region "Definitions"
     const dispatch = useDispatch();
 
     const sortBy = useSelector(state => state.sortBy);
     const languageList = useSelector(state => state.languageList);
     const genreList = useSelector(state => state.genreList);
     const showingReleasedMovies = useSelector(state => state.showingReleasedMovies);
-    
+
     let languageFilter = useSelector(state => state.languageFilter);
     let genreFilter = useSelector(state => state.genreFilter);
-    //#endregion
 
-    //#region "Set default dropdown label text, if no filters are chosen"
-    if(!languageFilter || languageFilter.length === 0) languageFilter = ["All Languages"];
-    if(!genreFilter || genreFilter.length === 0) genreFilter = ["All Genres"];
-    //#endregion
+    // Set default dropdown label text, if no filters are chosen
+    if (!languageFilter || languageFilter.length === 0) languageFilter = ["All Languages"];
+    if (!genreFilter || genreFilter.length === 0) genreFilter = ["All Genres"];
 
-    //#region "Render"
     return (
         <div className="header">
             <div className="header-item">
                 <div className="header-title"> Movie Trailers </div>
-                <div style={{display:"flex"}}>
-                    <button className={showingReleasedMovies? "btn header-button": "btn header-button active"} 
-                            onClick={()=>dispatch(Actions.ToggleReleasedMovies(false))} >coming soon</button>
-                    <button className={showingReleasedMovies? "btn header-button active": "btn header-button"} 
-                            onClick={()=>dispatch(Actions.ToggleReleasedMovies(true))} >now showing</button>
+                <div className="display-flex">
+                    <button
+                        className={showingReleasedMovies ? "btn header-button" : "btn header-button active"}
+                        onClick={() => dispatch(toggleReleasedMovies(false))}
+                    >
+                        coming soon
+                    </button>
+                    <button
+                        className={showingReleasedMovies ? "btn header-button active" : "btn header-button"}
+                        onClick={() => dispatch(toggleReleasedMovies(true))}
+                    >
+                        now showing
+                    </button>
                 </div>
             </div>
 
             <div className="header-item">
-                <Dropdown   label={sortBy} 
-                            list={["Popular", "Fresh"]} isFilter={false}
-                            select={(x)=>dispatch(Actions.SetSortBy(x))} />
-                <Dropdown   label={languageFilter} 
-                            list={languageList} isFilter={true}
-                            select={(x, add=true)=>dispatch(Actions.ToggleLanguageFilter(x,add))} />
-                <Dropdown   label={genreFilter} 
-                            list={genreList} isFilter={true}
-                            select={(x, add=true)=>dispatch(Actions.ToggleGenreFilter(x,add))} />
+                <Dropdown label={sortBy} list={["Popular", "Fresh"]} isFilter={false} select={x => dispatch(setSortBy(x))} />
+                <Dropdown
+                    label={languageFilter}
+                    list={languageList}
+                    isFilter={true}
+                    select={(x, add = true) => dispatch(toggleLanguageFilter(x, add))}
+                />
+                <Dropdown label={genreFilter} list={genreList} isFilter={true} select={(x, add = true) => dispatch(toggleGenreFilter(x, add))} />
             </div>
         </div>
     );
-    //#endregion
 }

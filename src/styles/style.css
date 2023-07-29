@@ -1,0 +1,40 @@
+:root {
+    --theme-green: #49ba8e;
+}
+
+body {
+    margin: 0px;
+    font-size: 14px;
+    background: #1c1c1c;
+    color: white;
+}
+
+/* ScrollBar */
+::-webkit-scrollbar {
+    width: 5px;
+    cursor: pointer;
+}
+
+::-webkit-scrollbar-track {
+    background: #1c1c1c;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--theme-green);
+}
+
+.display-none {
+    display: none !important;
+}
+
+.display-flex {
+    display: flex !important;
+}
+
+.margin-t-100 {
+    margin-top: 100px !important;
+}
+
+.margin-l-20 {
+    margin-left: 20px !important;
+}

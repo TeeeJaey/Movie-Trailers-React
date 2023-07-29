@@ -1,9 +1,8 @@
-
 /* Dropdown */
 
 .dropdown-menu::-webkit-scrollbar {
-    width: 0;  /* Remove scrollbar space */
-    background: transparent;  /* Optional: just make scrollbar invisible */
+    width: 0; /* Remove scrollbar space */
+    background: transparent; /* Optional: just make scrollbar invisible */
 }
 
 .dropdown-btn {
@@ -12,8 +11,8 @@
     align-items: center;
     justify-content: space-between;
     margin: 0px 10px;
-    color: #49ba8e;
-    border: 1px solid #49ba8e;
+    color: var(--theme-green);
+    border: 1px solid var(--theme-green);
     font-size: 12px;
     width: 120px;
     min-width: 120px;
@@ -23,11 +22,11 @@
 .dropdown-menu {
     z-index: 3000;
     background: #323232;
-    color:white;
+    color: white;
     cursor: pointer;
     display: none;
     margin: 0px 10px;
-    font-size: 12px; 
+    font-size: 12px;
     min-width: 120px;
     width: 120px;
     max-height: 70vh;
@@ -36,48 +35,48 @@
 .dropdown-item {
     display: inline-flex;
     opacity: 0.75;
-    color:white;
+    color: white;
     font-size: 12px;
     height: 30px;
 }
 .dropdown-item:hover {
     background: #000;
-    color: #49ba8e;
+    color: var(--theme-green);
 }
 
-.dropdown-item-checkbox{
+.dropdown-item-checkbox {
     margin-right: 8px;
     margin-top: 5px;
     cursor: pointer;
     height: 12px;
     width: 14px;
-    border: 1px solid #49ba8e;
+    border: 1px solid var(--theme-green);
     font-size: 10px;
 }
 
-.dropdown-item-checkbox.checked{
+.dropdown-item-checkbox.checked {
     font-weight: bold;
-    background-color: #49ba8e;
+    background-color: var(--theme-green);
 }
 
 .dropdown-item:hover > .dropdown-item-checkbox.checked {
     color: white;
 }
 
-.dropdown-item-checkbox span{
+.dropdown-item-checkbox span {
     display: none;
 }
 
-.dropdown-item-checkbox.checked span{
+.dropdown-item-checkbox.checked span {
     display: block;
     position: relative;
     top: -2px;
-    left: 1px; 
+    left: 1px;
 }
-.dropdown:hover > .dropdown-menu{
+.dropdown:hover > .dropdown-menu {
     display: block;
 }
-.dropdown:hover > .dropdown-btn{
+.dropdown:hover > .dropdown-btn {
     color: #fff;
 }
 
@@ -86,7 +85,7 @@
 }
 
 .dropdown .ellipsis {
-    margin:auto;
+    margin: auto;
     display: inline-block;
     overflow: hidden;
     white-space: nowrap;
@@ -94,11 +93,9 @@
     width: 80px;
 }
 
-
 /* Tablets */
 
-@media only screen and (max-width:800px) {
-
+@media only screen and (max-width: 800px) {
     .dropdown {
         width: 30%;
         min-width: 30%;
@@ -118,8 +115,7 @@
 
 /* Mobile */
 
-@media only screen and (max-width:450px) {
-
+@media only screen and (max-width: 450px) {
     .dropdown-menu {
         width: 120px;
         min-width: 120px;
@@ -130,16 +126,14 @@
         margin: 0px 8px;
     }
     .dropdown-label {
-        width:fit-content;
+        width: fit-content;
         min-width: 60px;
     }
 }
 
-
 /* Desktop */
 
-@media only screen and (min-width:1100px) {
-
+@media only screen and (min-width: 1100px) {
     .dropdown-menu {
         width: 150px;
         min-width: 150px;
@@ -153,22 +147,22 @@
         height: 35px;
     }
     .dropdown-label {
-        width:fit-content;
+        width: fit-content;
         min-width: 100px;
     }
-        
+
     .dropdown-item {
         font-size: 14px;
         height: 35px;
     }
 
-    .dropdown-item-checkbox{
+    .dropdown-item-checkbox {
         margin-right: 8px;
         margin-top: 5px;
         cursor: pointer;
         height: 14px;
         width: 16px;
-        border: 1px solid #49ba8e;
+        border: 1px solid var(--theme-green);
         font-size: 12px;
     }
 }

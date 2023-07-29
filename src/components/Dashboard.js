@@ -1,36 +1,31 @@
-/*
-    The Main Dashboard component - starts below the Header
-    Includes the AppliedFilters component
-    Calls the MovieBlock component for each movie in the movie list
-*/
-
-//#region "Imports"
 import React, { useEffect, Suspense } from "react";
 import ReactDOM from "react-dom";
 import { useSelector, Provider } from "react-redux";
 
-import store from "../store/Store.js";
 import "../styles/Dashboard.css";
 import AppliedFilters from "./AppliedFilters";
-import Constants from "../utils/Constants";
+import { SortBy } from "../utils/Constants";
 import useScrollEffect from "../utils/ScrollEffect";
 import Trailer from "./Trailer";
 import useWindowSize from "../utils/WindowSize.js";
+import store from "../store/store";
 
 const MovieCard = React.lazy(() => import("./MovieCard"));
-//#endregion
 
+/**
+ * The Main Dashboard component - starts below the Header
+ * Includes the AppliedFilters component
+ * Calls the MovieBlock component for each movie in the movie list
+ */
 export default function Dashboard() {
-    //#region "Definitions"
-    const [width, height] = useWindowSize();
+    const { width } = useWindowSize();
     const moviesList = useSelector(state => state.moviesList);
     const sortBy = useSelector(state => state.sortBy);
     const languageFilter = useSelector(state => state.languageFilter);
     const genreFilter = useSelector(state => state.genreFilter);
     const runningTrailerID = useSelector(state => state.runningTrailerID);
-    //#endregion
 
-    //#region "Filtering and Sorting the Movie List"
+    // Filtering and Sorting the Movie List
     let filteredMoviesList = [];
     if (moviesList && moviesList.length > 0) {
         filteredMoviesList = [...moviesList];
@@ -51,19 +46,17 @@ export default function Dashboard() {
             });
         }
 
-        if (sortBy === Constants.SortBy.Fresh) {
+        if (sortBy === SortBy.Fresh) {
             filteredMoviesList.sort((a, b) => b.trailerUploadDate - a.trailerUploadDate);
-        } else if (sortBy === Constants.SortBy.Popular) {
+        } else if (sortBy === SortBy.Popular) {
             filteredMoviesList.sort((a, b) => parseInt(b.ratings.wtsCount) - parseInt(a.ratings.wtsCount));
         }
     }
-    //#endregion
 
-    //#region "Scrolling effect to load and render more movies on scroll"
+    // Scrolling effect to load and render more movies on scroll
     const listItems = useScrollEffect(filteredMoviesList, [moviesList, sortBy, languageFilter, genreFilter]);
-    //#endregion
 
-    //#region "Render the trailer node above the selected row"
+    //Render the trailer node above the selected row
     useEffect(() => {
         const oldTrailerNodes = document.getElementsByClassName("trailer-component");
         if (oldTrailerNodes && oldTrailerNodes.length > 0) oldTrailerNodes[0].parentNode.removeChild(oldTrailerNodes[0]);
@@ -105,9 +98,8 @@ export default function Dashboard() {
             );
         }
     }, [runningTrailerID]);
-    //#endregion
 
-    //#region "Move the trailer above the selected row on resize"
+    // Move the trailer above the selected row on resize
     useEffect(() => {
         if (runningTrailerID && runningTrailerID !== "") {
             const trailerNodes = document.getElementsByClassName("trailer-component");
@@ -140,9 +132,7 @@ export default function Dashboard() {
             }
         }
     }, [width]);
-    //#endregion
 
-    //#region "Render"
     return (
         <div className="dashboard">
             <AppliedFilters />
@@ -152,14 +142,13 @@ export default function Dashboard() {
                     listItems.length > 0 &&
                     listItems.map(movie => (
                         <div key={movie.EventCode} id={movie.EventCode}>
-                            <Suspense fallback={<div style={{ display: "none" }}></div>}>
+                            <Suspense fallback={<div className="display-none"></div>}>
                                 <MovieCard key={movie.EventCode} movie={movie} />
                             </Suspense>
                         </div>
                     ))}
-                {!listItems || (listItems.length == 0 && <div style={{ marginTop: "100px" }}> No data found for the applied filter.</div>)}
+                {!listItems || (listItems.length == 0 && <div className="margin-t-100"> No data found for the applied filter.</div>)}
             </div>
         </div>
     );
-    //#endregion
 }

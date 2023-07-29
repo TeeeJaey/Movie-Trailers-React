@@ -1,14 +1,13 @@
-
-.movie-list .movie{
+.movie-list .movie {
     margin: 10px;
 }
 
-.movie-list .movie .movie-name{
+.movie-list .movie .movie-name {
     font-size: 12px;
     margin: 5px 0px;
     width: 180px;
     opacity: 0.8;
-    
+
     position: relative;
     display: flex;
     justify-content: space-evenly;
@@ -19,7 +18,7 @@
     position: relative;
     height: 240px;
     width: 180px;
-    border: 1px solid #49ba8e;
+    border: 1px solid var(--theme-green);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -28,7 +27,7 @@
     text-align: center;
 }
 
-.movie-image image{
+.movie-image image {
     height: 240px;
     width: 180px;
 }
@@ -48,7 +47,7 @@
     right: 0px;
     top: 5px;
     border-radius: 100%;
-    background: #49ba8e; 
+    background: var(--theme-green);
     width: 40px;
     height: 40px;
     display: flex;
@@ -66,8 +65,8 @@
 .movie-image > .movie-rating {
     z-index: 100;
     position: absolute;
-    right:0px;
-    bottom:5px;
+    right: 0px;
+    bottom: 5px;
     width: 40%;
     display: flex;
     justify-content: space-evenly;
@@ -76,7 +75,7 @@
 
 .movie-rating .thumbsup-ico {
     font-size: 20px;
-    color: #49ba8e; 
+    color: var(--theme-green);
 }
 
 .flex-evenly {
@@ -88,16 +87,14 @@
     font-size: 11px;
 }
 
-
 /* Desktop */
 
-@media only screen and (min-width:1100px) {
-            
-    .movie-list .movie{
+@media only screen and (min-width: 1100px) {
+    .movie-list .movie {
         margin: 15px;
     }
 
-    .movie-list .movie .movie-name{
+    .movie-list .movie .movie-name {
         font-size: 14px;
         margin: 8px 0px;
     }
